@@ -24,7 +24,7 @@ require (
 	github.com/fatih/color v1.17.0
 	github.com/fsnotify/fsnotify v1.7.0
 	github.com/gammazero/deque v0.1.2
-	github.com/go-logr/logr v1.4.1
+	github.com/go-logr/logr v1.4.2
 	github.com/gogo/protobuf v1.3.2
 	github.com/google/btree v1.1.2
 	github.com/google/uuid v1.6.0
@@ -39,7 +39,7 @@ require (
 	github.com/mdlayher/packet v1.1.2
 	github.com/miekg/dns v1.1.59
 	github.com/munnerz/goautoneg v0.0.0-20191010083416-a7dc8b61c822
-	github.com/onsi/ginkgo/v2 v2.17.3
+	github.com/onsi/ginkgo/v2 v2.18.0
 	github.com/onsi/gomega v1.33.1
 	github.com/pkg/sftp v1.13.6
 	github.com/prometheus/client_golang v1.18.0
