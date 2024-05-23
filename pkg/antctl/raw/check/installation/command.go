@@ -141,7 +141,6 @@ func Run(o *options) error {
 		return err
 	}
 	stats := testContext.runTests(ctx)
-
 	testContext.Log("Test finished: %v tests succeeded, %v tests failed, %v tests were skipped", stats.numSuccess, stats.numFailure, stats.numSkipped)
 	check.Teardown(ctx, testContext.client, testContext.clusterName, testContext.namespace)
 	if stats.numFailure > 0 {

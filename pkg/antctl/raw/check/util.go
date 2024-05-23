@@ -19,6 +19,7 @@ import (
 	"context"
 	"crypto/rand"
 	"fmt"
+	networkingv1 "k8s.io/api/networking/v1"
 	"os"
 	"time"
 
@@ -232,4 +233,44 @@ func Teardown(ctx context.Context, client kubernetes.Interface, clusterName stri
 	} else {
 		fmt.Fprintf(os.Stdout, fmt.Sprintf("[%s] ", clusterName)+"Setup deletion successful\n")
 	}
+}
+
+func ApplyIngressAll(namespace string) *networkingv1.NetworkPolicy {
+	networkPolicy := &networkingv1.NetworkPolicy{
+		ObjectMeta: metav1.ObjectMeta{
+			Name:      "all-ingress-deny",
+			Namespace: namespace,
+		},
+		Spec: networkingv1.NetworkPolicySpec{
+			PodSelector: metav1.LabelSelector{
+				MatchExpressions: []metav1.LabelSelectorRequirement{
+					{
+						Key:      "app",
+						Operator: metav1.LabelSelectorOpIn,
+						Values:   []string{"echo-same-node", "echo-other-node"},
+					},
+				},
+			},
+			PolicyTypes: []networkingv1.PolicyType{
+				networkingv1.PolicyTypeIngress,
+			},
+		},
+	}
+	return networkPolicy
+}
+
+func ApplyEgressAll(namespace string) *networkingv1.NetworkPolicy {
+	networkPolicy := &networkingv1.NetworkPolicy{
+		ObjectMeta: metav1.ObjectMeta{
+			Name:      "all-egress-deny",
+			Namespace: namespace,
+		},
+		Spec: networkingv1.NetworkPolicySpec{
+			PodSelector: metav1.LabelSelector{},
+			PolicyTypes: []networkingv1.PolicyType{
+				networkingv1.PolicyTypeEgress,
+			},
+		},
+	}
+	return networkPolicy
 }
